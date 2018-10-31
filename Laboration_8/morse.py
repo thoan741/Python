@@ -15,8 +15,6 @@ myFile = f.read()
 
 myString = str(myFile)[2:-1]
 improvedString = myString[0:134] + 'Å' + myString[142:148] + 'Ä' + myString[156:161] + 'Ö' + myString[169:]
-myDict = {improvedString[0]: improvedString[2:int(improvedString[1])+2]}
-myDict[improvedString[4]] = improvedString[6:10]
 """
 Här snyggas textfilen som laddades ner till. Först konverteras den från bit till sträng.
 Sedan tar jag bort onödiga tecken i början av strängen. Bokstäver Å,Ä,Ö sparas inte korrekt, så jag byter ut de tecknen,
