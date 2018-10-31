@@ -1,6 +1,7 @@
 # Author: Thomas Andersson
-# Version: 1.0
+# Version: 1.1
 # Date: 2018-10-31
+# Små ändringar som behövdes göra när jag gjorde ändringar i morse-filen.
 
 
 
@@ -11,6 +12,8 @@ def main():
     while x[1]:
         x = inputManagement()
         if not x[1]:
+            print(x[0])
+            print("Tack och adjö!")
             break
         elif convertSymbolsToMorse(x[0], symbolToMorseDict)[1]:
             print(convertSymbolsToMorse(x[0], symbolToMorseDict)[0])

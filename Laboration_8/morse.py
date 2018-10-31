@@ -1,7 +1,7 @@
 # Author: Thomas Andersson
 # Date: 2018-10-31
-# Version 1.2
-# Fokus har varit på felmeddelanden. Skapade även en main funktion som kör programmet, samt döpte om denna fil.
+# Version 1.3
+# Tillsnyggat, tagit bort tester och kommenterat.
 
 import urllib.request
 
@@ -13,14 +13,10 @@ link = "http://www.nada.kth.se/kurser/su/DA2001/sudata18/laborationer/morse.d"
 f = urllib.request.urlopen(link)
 myFile = f.read()
 
-# print(myfile)
-
 myString = str(myFile)[2:-1]
 improvedString = myString[0:134] + 'Å' + myString[142:148] + 'Ä' + myString[156:161] + 'Ö' + myString[169:]
 myDict = {improvedString[0]: improvedString[2:int(improvedString[1])+2]}
 myDict[improvedString[4]] = improvedString[6:10]
-# print(improvedString)
-# print(myfile)
 """
 Här snyggas textfilen som laddades ner till. Först konverteras den från bit till sträng.
 Sedan tar jag bort onödiga tecken i början av strängen. Bokstäver Å,Ä,Ö sparas inte korrekt, så jag byter ut de tecknen,
@@ -49,16 +45,12 @@ def makeDict(str):
 
 
 symbolToMorseDict = makeDict(improvedString)
-
 # Jag skapar ett dictionary med funktionen makeDict och teckensträngen som laddades ned.
 # Denna kan användas för att konvertera symboler,bokstäver och nummer till morsekod.
 
 morseToSymbolDict = {v: k for k, v in symbolToMorseDict.items()}
-# Här skapas ett nytt dictionary med hjälp av det som skapades över, där value och keyword har bytt plats,
-# för att få ett nytt dictionairy som konverterar morsetecken till bokstäver,symboler eller siffror.
-
-# print(symbolToMorseDict)
-# print(morseToUpperSymbolDict)
+# Här skapas ett nytt dictionary med hjälp av det som skapades över, där value och keyword har bytt plats överallt,
+# för att då få ett nytt dictionary som konverterar morsetecken till bokstäver,symboler eller siffror.
 
 
 def inputManagement():
@@ -69,9 +61,7 @@ def inputManagement():
         a = input("Mata in ett meddelande i klartext eller morsekod: ")
         return [a, True]
     except EOFError as e:
-        print(e)
-        print("Tack och adjö!")
-        return [False, False]
+        return [e, False]
 
 
 
@@ -82,7 +72,7 @@ def convertSymbolsToMorse(msg, aDict):
     :param msg: Denna parameter innehåller ett meddelande.
     :param aDict: Ett dictionary med bokstäver som keyword och motsvarande morsetecken
      som värde i en teckensträng.
-    :return: Returnerar den omvandlade teckensträngen om möjligt, annars returneras falskt.
+    :return: Returnerar den omvandlade teckensträngen om möjligt, annars returneras falskt samt vart problem uppstod.
     """
     b = ''
     for i in msg:
@@ -99,10 +89,11 @@ def convertSymbolsToMorse(msg, aDict):
 
 def convertMorseToSymbols(msg, aDict):
     """
-    Ska konvertera ett morsemeddelande till bokstäver.
-    :param msg: msg kommer vara en teckensträng, som förväntas innehålla morsetecken
+    Konverterar ett morsemeddelande till bokstäver.
+    :param msg: msg kommer vara en teckensträng, som förväntas innehålla morsetecken.
     :param aDict: dictionary som konverterar morsekod till bokstäver.
-    :return: returnerar ett morsemeddelande omvandlat till bokstäver om det går, annars returneras False.
+    :return: returnerar ett morsemeddelande omvandlat till bokstäver om det går, annars returneras False och
+     vart i textsträngen problemet uppstod..
     """
     msg = msg.split("  ")
     last = "."
@@ -124,10 +115,5 @@ def convertMorseToSymbols(msg, aDict):
                     return [i, False]
         res = res + ' '
     return [res, True]
-
-
-#print(convertSymbolsToMorse("hej Hopp!", symbolToMorseDict)[0])
-
-#print(convertMorseToSymbols(".... . .---  .... --- .--. .--. ..--.  .... . .---  .... --- .--. .--. ..--.", morseToSymbolDict)[0])
 
 
