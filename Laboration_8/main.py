@@ -1,13 +1,20 @@
 # Author: Thomas Andersson
-# Version: 1.1
+# Version: 1.2
 # Date: 2018-10-31
-# Små ändringar som behövdes göra när jag gjorde ändringar i morse-filen.
+# Kommentarer.
 
 
 
 from morse import *
 
 def main():
+    """
+    Andra elementet i x ändras endast till False när ctrl+D klickas, och då avslutas programmet.
+    Alla andra jämförelser kollar om andra elementet som returnas ur konverteringsfunktionerna
+    är sant eller falskt, där de respektive kommer ge falskt om det ej kan översättas.
+    Kan det inte översättas åt något håll, kommer första stället i strängen där översättning inte fungerade
+    att printas ut för bägge konverteringsmetoderna.
+    """
     x = [True, True]
     while x[1]:
         x = inputManagement()

@@ -1,8 +1,19 @@
 # Author: Thomas Andersson
 # Date: 2018-10-31
-# Version 1.3
-# Tillsnyggat, tagit bort tester och kommenterat.
+# Version 1.4
+# Lagt till morse.d som en fil som läses in.
 
+
+# myFile = open("morse.d.py")
+# improvedString = str(myFile.read())
+# improvedString = improvedString[:134] + 'Å' + \
+#                  improvedString[136:142] + 'Ä' + \
+#                  improvedString[144:149] + 'Ö' + \
+#                  improvedString[151:]
+"""
+Jag öppnar filen morse.d i läsbart läge. Sedan läses filen in och konverteras till en teckensträng.
+Å, Ä och Ö läses inte in korrekt så de måste ändras innan jag fortsätter.
+"""
 import urllib.request
 
 """
@@ -12,9 +23,11 @@ urllib.request låter mig hämta text från hemsidor.
 link = "http://www.nada.kth.se/kurser/su/DA2001/sudata18/laborationer/morse.d"
 f = urllib.request.urlopen(link)
 myFile = f.read()
-
 myString = str(myFile)[2:-1]
-improvedString = myString[0:134] + 'Å' + myString[142:148] + 'Ä' + myString[156:161] + 'Ö' + myString[169:]
+improvedString = myString[0:134] + 'Å' + \
+                 myString[142:148] + 'Ä' + \
+                 myString[156:161] + 'Ö' + \
+                 myString[169:]
 """
 Här snyggas textfilen som laddades ner till. Först konverteras den från bit till sträng.
 Sedan tar jag bort onödiga tecken i början av strängen. Bokstäver Å,Ä,Ö sparas inte korrekt, så jag byter ut de tecknen,
@@ -27,7 +40,7 @@ def makeDict(str):
     """
     makeDict skapar ett dictionary ur en teckensträng, där varje bokstav kommer att bli ett keyword
      och paras ihop med den morsesträng som tillhör ordet.
-    :param str: str är en textsträng där en bokstav kommer först, sedan ett nummer n,
+    :param str: str är en teckensträng där en bokstav kommer först, sedan ett nummer n,
      och sedan en morsekod som är n tecken långt
     :return: Ett dictionary där varje keyword är en bokstav/nummer/symbol som är parat ihop med
      den teckensträng som är morsekoden för den bokstaven.
@@ -66,8 +79,8 @@ def inputManagement():
 
 def convertSymbolsToMorse(msg, aDict):
     """
-    Konverterar ett meddelande från morse till bokstäver/siffror/symboler.
-    :param msg: Denna parameter innehåller ett meddelande.
+    Konverterar ett meddelande från bokstäver/siffror/symboler till morse.
+    :param msg: Denna parameter innehåller en teckensträng.
     :param aDict: Ett dictionary med bokstäver som keyword och motsvarande morsetecken
      som värde i en teckensträng.
     :return: Returnerar den omvandlade teckensträngen om möjligt, annars returneras falskt samt vart problem uppstod.
