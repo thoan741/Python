@@ -1,17 +1,17 @@
 # Author: Thomas Andersson
 # Date: 2018-11-02
-# Version 1.6
-# Felhantering gällande felinläsning av filen morse.d.
+# Version 1.7
+# En liten ändring som även hanterar felinläsning från hemsidor.
 
-try:
-    myFile = open("morse.d.py")
-    improvedString = str(myFile.read())
-    improvedString = improvedString[:134] + 'Å' + \
-                    improvedString[136:142] + 'Ä' + \
-                    improvedString[144:149] + 'Ö' + \
-                    improvedString[151:]
-except FileNotFoundError:
-    improvedString = "aa"
+# try:
+#     myFile = open("morse.d.py")
+#     improvedString = str(myFile.read())
+#     improvedString = improvedString[:134] + 'Å' + \
+#                     improvedString[136:142] + 'Ä' + \
+#                     improvedString[144:149] + 'Ö' + \
+#                     improvedString[151:]
+# except FileNotFoundError:
+#     improvedString = "aa"
 """
 Jag öppnar filen morse.d i läsbart läge. Sedan läses filen in och konverteras till en teckensträng.
 Å, Ä och Ö läses inte in korrekt så de måste ändras innan jag fortsätter.
@@ -22,15 +22,17 @@ import urllib.request
 """
 urllib.request är ett bibliotek som låter mig bl.a. att läsa och spara text från hemsidor.
 """
-
-# link = "http://www.nada.kth.se/kurser/su/DA2001/sudata18/laborationer/morse.d"
-# f = urllib.request.urlopen(link)
-# myFile = f.read()
-# myString = str(myFile)[2:-1]
-# improvedString = myString[0:134] + 'Å' + \
-#                  myString[142:148] + 'Ä' + \
-#                  myString[156:161] + 'Ö' + \
-#                  myString[169:]
+try:
+    link = "http://www.nada.kth.se/kurser/su/DA2001/sudata18/laborationer/morse.d"
+    f = urllib.request.urlopen(link)
+    myFile = f.read()
+    myString = str(myFile)[2:-1]
+    improvedString = myString[0:134] + 'Å' + \
+                     myString[142:148] + 'Ä' + \
+                     myString[156:161] + 'Ö' + \
+                     myString[169:]
+except urllib.error.HTTPError:
+    improvedString = "aa"
 """
 Här snyggas textfilen som laddades ner till. Först konverteras den från bit till sträng.
 Sedan tar jag bort onödiga tecken i början av strängen. Bokstäver Å,Ä,Ö sparas inte korrekt, så jag byter ut de tecknen,
